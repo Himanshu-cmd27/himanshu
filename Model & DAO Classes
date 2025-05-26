@@ -1,0 +1,39 @@
+model/Student.java
+
+package model;
+
+public class Student {
+    private int id;
+    private String name;
+    private String email;
+    private int age;
+
+    // Constructor, Getters & Setters
+}
+
+dao/StudentDAO.java
+
+package dao;
+
+import model.Student;
+import db.DBConnection;
+
+import java.sql.*;
+
+public class StudentDAO {
+    public void saveStudent(Student student) {
+        String query = "INSERT INTO students (name, email, age) VALUES (?, ?, ?)";
+
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+
+            stmt.setString(1, student.getName());
+            stmt.setString(2, student.getEmail());
+            stmt.setInt(3, student.getAge());
+            stmt.executeUpdate();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
