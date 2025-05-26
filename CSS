@@ -1,0 +1,11 @@
+StudentManagement/
+├── src/
+│   ├── model/
+│   │   └── Student.java
+│   ├── dao/
+│   │   └── StudentDAO.java
+│   ├── ui/
+│   │   └── StudentForm.java
+│   ├── db/
+│   │   └── DBConnection.java
+│   └── Main.java
