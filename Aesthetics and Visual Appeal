@@ -1,0 +1,45 @@
+package ui;
+
+import model.Student;
+import dao.StudentDAO;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class StudentForm extends JFrame {
+    private JTextField nameField, emailField, ageField;
+
+    public StudentForm() {
+        setTitle("Student Registration");
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridLayout(5, 2, 10, 10));
+
+        // UI Components
+        add(new JLabel("Name:"));
+        nameField = new JTextField();
+        add(nameField);
+
+        add(new JLabel("Email:"));
+        emailField = new JTextField();
+        add(emailField);
+
+        add(new JLabel("Age:"));
+        ageField = new JTextField();
+        add(ageField);
+
+        JButton saveButton = new JButton("Save");
+        add(saveButton);
+
+        saveButton.addActionListener(e -> {
+            Student s = new Student();
+            s.setName(nameField.getText());
+            s.setEmail(emailField.getText());
+            s.setAge(Integer.parseInt(ageField.getText()));
+
+            new StudentDAO().saveStudent(s);
+            JOptionPane.showMessageDialog(this, "Student Saved!");
+        });
+    }
+}
