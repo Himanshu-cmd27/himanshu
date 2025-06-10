@@ -1,0 +1,4 @@
+if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+    JOptionPane.showMessageDialog(this, "Invalid email format.");
+    return;
+}
