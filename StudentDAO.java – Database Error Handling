@@ -1,0 +1,29 @@
+public boolean insertStudent(Student student) {
+    String sql = "INSERT INTO students(name, email, age) VALUES (?, ?, ?)";
+
+    try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        stmt.setString(1, student.getName());
+        stmt.setString(2, student.getEmail());
+        stmt.setInt(3, student.getAge());
+
+        stmt.executeUpdate();
+        return true;
+
+    } catch (SQLIntegrityConstraintViolationException e) {
+        // Duplicate email error (unique constraint violation)
+        System.err.println("Duplicate entry: " + e.getMessage());
+        JOptionPane.showMessageDialog(null,
+                "This email is already registered. Please use a different email.",
+                "Duplicate Entry",
+                JOptionPane.WARNING_MESSAGE);
+        return false;
+
+    } catch (SQLException e) {
+        System.err.println("SQL error while inserting student: " + e.getMessage());
+        JOptionPane.showMessageDialog(null,
+                "A database error occurred: " + e.getMessage(),
+                "Database Error",
+                JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
